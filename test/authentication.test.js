@@ -27,7 +27,7 @@ describe('authentication', () => {
         
           // act
           const results = await appTester(
-              App.authentication.config.sessionConfig.perform,
+              App.authentication.sessionConfig.perform,
               bundle
           );
     
@@ -48,7 +48,7 @@ describe('authentication', () => {
 
         // act/assert
         await expect(appTester(
-          App.authentication.config.sessionConfig.perform,
+          App.authentication.sessionConfig.perform,
           bundle
         )).rejects.toThrow('The given client credentials were not valid [401]');
 
@@ -65,7 +65,7 @@ describe('authentication', () => {
 
         // act/assert
         await expect(appTester(
-          App.authentication.config.sessionConfig.perform,
+          App.authentication.sessionConfig.perform,
           bundle
         )).rejects.toThrow();
 
@@ -82,7 +82,7 @@ describe('authentication', () => {
 
         // act/assert
         await expect(appTester(
-          App.authentication.config.sessionConfig.perform,
+          App.authentication.sessionConfig.perform,
           bundle
         )).rejects.toThrow();
 
@@ -103,7 +103,7 @@ describe('authentication', () => {
 
         // act
         const results = await appTester(
-            App.authentication.config.test,
+            App.authentication.test,
             bundle
         );
   
@@ -149,7 +149,7 @@ describe('authentication', () => {
 
         // act/assert
         await expect(appTester(
-            App.authentication.config.test,
+            App.authentication.test,
             bundle
         )).rejects.toThrow('Unauthorized');
 
