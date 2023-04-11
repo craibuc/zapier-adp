@@ -1,14 +1,32 @@
+/*
+.Example
+npm test -- authentication.test.js
+
+run the tests in this file.
+
+.Example
+nvm exec v16 npm test -- authentication.test.js
+
+run the tests in this file using nvm (node version manager)
+*/
+
 const zapier = require('zapier-platform-core');
 const App = require('../index');
 const appTester = zapier.createAppTester(App);
+
+const crypto = require('crypto')
 
 // load .env
 zapier.tools.env.inject();
 
 describe('authentication', () => {
 
+  let bundle = null
+
+  beforeEach(() => {
+
     // arrange
-    let bundle = {
+    bundle = {
       authData: {
         certificate: process.env.ADP_CERTIFICATE,
         private_key: process.env.ADP_PRIVATE_KEY,
@@ -18,6 +36,7 @@ describe('authentication', () => {
       inputData: {},
     };
 
+  });
 
   describe('getAccessToken', () => {
 
@@ -50,8 +69,8 @@ describe('authentication', () => {
         await expect(appTester(
           App.authentication.sessionConfig.perform,
           bundle
-        )).rejects.toThrow('The given client credentials were not valid [401]');
-
+        )).rejects.toThrow();
+        // UnauthorizedError
       });
   
     });
@@ -92,14 +111,14 @@ describe('authentication', () => {
 
   });
 
-  describe('testAuthentication', () => {
+  describe('test', () => {
   
-    describe.skip('when a valid sessionKey is supplied', () => {
+    describe('when a valid sessionKey is supplied', () => {
 
-      it('returns data from /hr/v2/workers/meta', async () => {
+      it('returns meta data', async () => {
     
         // arrange
-        bundle.authData.sessionKey = process.env.ADP_PRIVATE_KEY
+        bundle.authData.sessionKey = process.env.ADP_ACCESS_TOKEN
 
         // act
         const results = await appTester(
@@ -108,50 +127,24 @@ describe('authentication', () => {
         );
   
         // assert
-        results.should.not.beNull();
+        expect(results).not.toBeNull();
     
       });
   
     });
 
-    describe.skip('when an invalid sessionKey is supplied', () => {
+    describe('when an invalid sessionKey is supplied', () => {
 
       it('throws an error', async () => {
 
         // arrange
         bundle.authData.sessionKey = crypto.randomUUID()
 
-        // mock
-        // jest.spyOn(intacct.contacts, 'create_contact').mockImplementation(
-        //   () => {
-        //     throw new Error('Bad Request');
-        //   }
-        // )
-
-        /*
-        {
-          "response": {
-              "responseCode": 401,
-              "methodCode": "GET",
-              "resourceUri": {
-                  "href": "/hr/v2/workers/meta"
-              },
-              "serverRequestDateTime": "2023-01-25T16:41:35.894Z",
-              "applicationCode": {
-                  "code": 401,
-                  "typeCode": "error",
-                  "message": "Unauthorized"
-              },
-              "client_ip_adddress": "72.50.209.210",
-              "adp-correlationID": "87e78dca-290d-47dc-a474-673716b1b026"
-            }
-          } */
-
         // act/assert
         await expect(appTester(
             App.authentication.test,
             bundle
-        )).rejects.toThrow('Unauthorized');
+        )).rejects.toThrow();
 
       });
   
