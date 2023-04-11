@@ -1,3 +1,15 @@
+/*
+.Example
+npm test -- find_worker.test.js
+
+run the tests in this file.
+
+.Example
+nvm exec v18 npm test -- find_worker.test.js 
+
+run the tests in this file using nvm (node version manager)
+*/
+
 const zapier = require('zapier-platform-core');
 const App = require('../../index');
 const appTester = zapier.createAppTester(App);
@@ -12,8 +24,6 @@ describe('searches/find_worker', () => {
     authData: {
       certificate: process.env.ADP_CERTIFICATE,
       private_key: process.env.ADP_PRIVATE_KEY,
-      client_id: process.env.ADP_CLIENT_ID,
-      client_secret: process.env.ADP_CLIENT_SECRET,
       sessionKey: process.env.ADP_ACCESS_TOKEN,
     },
     inputData: {},
