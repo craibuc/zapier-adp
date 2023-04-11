@@ -8,8 +8,8 @@ const findWorker = async (z, bundle) => {
   // z.console.debug('findWorker')
   // z.console.debug('bundle',bundle)
 
-  const AdpClient = require("../lib/adp_client")
-  const client = new AdpClient(bundle.authData.certificate, bundle.authData.private_key)
+  const Adp = require("@craibuc/adp-workforce-now")
+  const client = new Adp.Client(bundle.authData.certificate, bundle.authData.private_key)
 
   client.access_token = bundle.authData.sessionKey
 
