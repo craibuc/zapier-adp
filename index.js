@@ -1,6 +1,6 @@
 const authentication = require('./authentication');
 
-// const hireWorkerCreate = require('./creates/hire_worker.js');
+// const rehireWorkerCreate = require('./creates/rehire_worker.js');
 
 const findWorkerSearch = require('./searches/find_worker.js');
 
@@ -16,7 +16,7 @@ const App = {
 
   resources: {},
 
-  // creates: { [hireWorkerCreate.key]: hireWorkerCreate },
+  // creates: { [rehireWorkerCreate.key]: rehireWorkerCreate },
   searches: { [findWorkerSearch.key]: findWorkerSearch },
   // triggers: { [getListStatesTrigger.key]: getListStatesTrigger },
 };
