@@ -1,6 +1,3 @@
-const { rejects } = require('assert');
-const { resolve } = require('path');
-
 /**
  * Returns an authentication object
  * @param {*} z 
@@ -9,16 +6,18 @@ const { resolve } = require('path');
  */
 const getAccessToken = async (z, bundle) => {
 
-  // z.console.debug('getAccessToken')
-  // z.console.debug('bundle',bundle)
+  z.console.log('getAccessToken')
+  // z.console.log('bundle',bundle)
 
-  const AdpClient = require("./lib/adp_client")
-  const client = new AdpClient(bundle.authData.certificate, bundle.authData.private_key)
+  const Adp = require("@craibuc/adp-workforce-now")
+  const client = new Adp.Client(bundle.authData.certificate, bundle.authData.private_key, z)
 
   const credentials = await client.authenticate(bundle.authData.client_id, bundle.authData.client_secret)
-  // z.console.debug('credentials',credentials)
+  z.console.log('credentials',credentials)
 
-  bundle.authData.sessionKey = credentials.access_token
+  return {
+    sessionKey: credentials.access_token
+  }
 
 };
 
@@ -29,14 +28,20 @@ const getAccessToken = async (z, bundle) => {
  */
 const test = async (z, bundle) => {
 
-  // z.console.debug('authentication.test')
-  // z.console.debug('bundle',bundle)
+  // z.console.log('test - bundle.authData',bundle.authData)
 
-  const AdpClient = require("./lib/adp_client")
-  const client = new AdpClient(bundle.authData.certificate, bundle.authData.private_key)
-  client.credentials.access_token = bundle.authData.sessionKey
+  const Adp = require("@craibuc/adp-workforce-now")
+  const client = new Adp.Client(bundle.authData.certificate, bundle.authData.private_key, z)
+  
+  client.access_token = bundle.authData.sessionKey
 
-  const meta = client.Worker.hire_meta()
+  const meta = await client.worker.hire_meta()
+  // z.console.log('meta',meta)
+
+  return {
+    name: 'ADP for Zapier by Cogniza',
+    // version: app.version
+  }
 
 };
 
@@ -58,7 +63,7 @@ module.exports = {
   // be `{{X}}`. This can also be a function that returns a label. That function has
   // the standard args `(z, bundle)` and data returned from the test can be accessed
   // in `bundle.inputData.X`.
-  connectionLabel: '{{json.NAME}}',
+  connectionLabel: 'success',
   fields: [
     {
       computed: false,
@@ -66,7 +71,7 @@ module.exports = {
       required: true,
       label: 'Client ID',
       type: 'string',
-      helpText: 'The Client ID is supplied by ADP.',
+      helpText: 'The [Client ID](https://developers.adp.com/) is supplied by ADP.',
     },
     {
       computed: false,
@@ -74,7 +79,7 @@ module.exports = {
       required: true,
       label: 'Client Secret',
       type: 'string',
-      helpText: 'The Client Secret is supplied by ADP.',
+      helpText: 'The [Client Secret](https://developers.adp.com/) is supplied by ADP.',
     },
     {
       computed: false,
@@ -82,7 +87,7 @@ module.exports = {
       required: true,
       label: 'Certificate',
       type: 'string',
-      helpText: 'Copy the text from the certificate file.  It should resemble:\n`-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----`',
+      helpText: 'Copy the text from the [certificate file](https://developers.adp.com/).  It should resemble:\n`-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----`',
     },
     {
       computed: false,
@@ -90,7 +95,7 @@ module.exports = {
       required: true,
       label: 'Private Key',
       type: 'string',
-      helpText: 'Copy the contents of the private-key file.  It should resemble:\n\n`-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----`',
+      helpText: 'Copy the contents of the [private-key file](https://developers.adp.com/).  It should resemble:\n\n`-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----`',
     },
   ],
   // befores: [],
