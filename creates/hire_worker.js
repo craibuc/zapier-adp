@@ -66,7 +66,7 @@ module.exports = {
         helpText: "The worker's gender.",
         required: true,
         list: false,
-        choices: { F: 'Female', M: 'Male' },
+        choices: { F: 'Female', M: 'Male', N: 'Not Specified' },
         altersDynamicFields: false,
       },
       {
