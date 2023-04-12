@@ -1,5 +1,6 @@
 const authentication = require('./authentication');
 
+const hireWorkerCreate = require('./creates/hire_worker.js');
 const rehireWorkerCreate = require('./creates/rehire_worker.js');
 const terminateWorkerCreate = require('./creates/terminate_worker.js');
 
@@ -18,6 +19,7 @@ const App = {
   resources: {},
 
   creates: { 
+    [hireWorkerCreate.key]: hireWorkerCreate,
     [rehireWorkerCreate.key]: rehireWorkerCreate,
     [terminateWorkerCreate.key]: terminateWorkerCreate 
   },
