@@ -87,7 +87,7 @@ module.exports = {
       required: true,
       label: 'Certificate',
       type: 'string',
-      helpText: 'Copy the text from the [certificate file](https://developers.adp.com/).  It should resemble:\n`-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----`',
+      helpText: 'Copy the text from the [certificate file](https://developers.adp.com/).  It should resemble:\n`-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----`.  Convert all new-line characters (`\n`) to actual line breaks (`enter`/`return`).',
     },
     {
       computed: false,
@@ -95,7 +95,7 @@ module.exports = {
       required: true,
       label: 'Private Key',
       type: 'string',
-      helpText: 'Copy the contents of the [private-key file](https://developers.adp.com/).  It should resemble:\n\n`-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----`',
+      helpText: 'Copy the contents of the [private-key file](https://developers.adp.com/).  It should resemble:\n\n`-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----`.  Convert all new-line characters (`\n`) to actual line breaks (`enter`/`return`).',
     },
   ],
   // befores: [],
