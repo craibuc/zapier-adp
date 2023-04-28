@@ -80,7 +80,7 @@ module.exports = {
       },
       {
         key: 'lineOne',
-        label: 'Given Name',
+        label: 'Address 1',
         type: 'string',
         helpText: "The first line of the worker's address.",
         required: true,
@@ -89,10 +89,10 @@ module.exports = {
       },
       {
         key: 'lineTwo',
-        label: 'Given Name',
+        label: 'Address 2',
         type: 'string',
         helpText: "The second line of the worker's address.",
-        required: true,
+        required: false,
         list: false,
         altersDynamicFields: false,
       },
@@ -107,7 +107,7 @@ module.exports = {
       },
       {
         key: 'stateCode',
-        label: 'City',
+        label: 'State',
         type: 'string',
         helpText: "The state code.",
         required: true,
