@@ -55,7 +55,7 @@ describe('searches/find_worker', () => {
     it('returns an empty object', async () => {
 
       // arrange
-      bundle.inputData.ssn = '123-45-6789å'
+      bundle.inputData.ssn = '123-45-6789'
 
       // act
       const results = await appTester(
